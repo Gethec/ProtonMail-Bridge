@@ -1,0 +1,9 @@
+#!/usr/bin/with-contenv bash
+
+if [ ! -d "/root/.gnupg" ]; then
+    gpg --gen-key --batch /data/gpg-conf
+    pass init pass-key
+fi
+
+socat TCP-LISTEN:25,fork TCP:127.0.0.1:1025 &
+socat TCP-LISTEN:143,fork TCP:127.0.0.1:1143 &
